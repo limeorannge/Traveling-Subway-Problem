@@ -10,5 +10,5 @@ Forms the proper adjency list using ahFinished.json (by Eunsik Choi)
 
 ## solver.cpp
 Solved the Euler Path problem using bitmask method.
-Have time complexity of $O(N2^M)$, N means the number of possible stations and M means the number of lanes.
+Have time complexity of $O(N2^M)$, $N$ means the number of possible stations and $M$ means the number of lanes.
 
