@@ -1,6 +1,6 @@
 import json
 passing_lines = ["에버라인", "서해선", "김포도시철도", "의정부경전철"]
-
+g = open("data.txt", "w")
 with open("ahfinished.json", "r", encoding='utf-8') as f:
     json_data = json.load(f)
 
@@ -29,9 +29,11 @@ station_data = [] # contains data of stations in tuple list form
 for i in a:
     if i.split()[1] not in passing_lines:
         station_data.append((id[i], lid[i.split()[1]]))
-print(len(station_data))
+g.write(str(len(station_data))+"\n")
 for i in station_data:
-    print(*i)        
+    for j in i:
+        g.write(str(j)+" ")
+    g.write("\n")      
 
 edges = [] # contains data of the path between each stations in tuple list form
 for i in a:
@@ -40,6 +42,8 @@ for i in a:
             edges.append((id[i], id[j[0]], j[2] if j[2]!='transfer' else 0))
         except:
             pass
-print(len(edges))
+g.write(str(len(edges))+"\n")
 for i in edges:
-    print(*i)
+    for j in i:
+        g.write(str(j)+" ")
+    g.write("\n")     
