@@ -27,7 +27,7 @@ bool vis[258][1<<19];
 Edge track[258][1<<19];
 vector<Edge> map[258];
 int starting_point;
-int ans = 1000000007;
+int ans = 190;
 Edge st;
 queue<Node> q;
 void bfs(int s){
@@ -67,7 +67,6 @@ void bfs(int s){
 }
 int main(){
     freopen("data.txt", "r", stdin);
-    freopen("result.txt", "w", stdout);
     //freopen("result.txt", "w", stdout);
     int n, m;
     cin >> n;
@@ -81,14 +80,20 @@ int main(){
         cin >> s >> e >> c;
         map[s].push_back({e, c});
     }
-    for(starting_point = 0; starting_point<1; starting_point++){
-        cout << starting_point << ": now simulating" << "\n";
+    int ans_now = ans;
+    for(starting_point = 0; starting_point<n; starting_point++){
+        cout << "now similating:" << rp << starting_point << "\n";
         memset(vis, 0, sizeof(vis));
+        memset(track, 0, sizeof(track));
         bfs(starting_point);
-    }
-    cout << ans << ln;
-    while(!(st.e == ans_starting_point && st.c == 0)){
-        cout << st.e << rp;
-        st = track[st.e][st.c];
+        if(ans_now != ans){
+            ans_now = ans;
+            cout << ans << ln;
+            while(!(st.e == ans_starting_point && st.c == 1<<line[ans_starting_point])){
+                cout << st.e << rp;
+                st = track[st.e][st.c];
+            }
+            cout << ans_starting_point<<ln;
+        }
     }
 }

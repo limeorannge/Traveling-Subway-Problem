@@ -54,5 +54,8 @@ h = open("result.txt", "r")
 path = h.readlines()[2].split()
 path.reverse()
 path = list(map(int, path))
+nowpath = -1
 for i in path:
-    print(idr[i], end=" --> ")
+    if nowpath != lid[idr[i].split()[1]]:
+        nowpath = lid[idr[i].split()[1]]
+        print(idr[i], end=", ")
