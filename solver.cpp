@@ -1,8 +1,11 @@
+#define rp " "
+#define ln "\n"
 #include <iostream>
 #include <vector>
 #include <queue>
 #include <stdlib.h>
 #include <string.h>
+#include <stack>
 using namespace std;
 typedef struct Edge{
     int e, c;
@@ -10,10 +13,22 @@ typedef struct Edge{
 typedef struct Node{
     int now, stat, dist;
 }Node;
+void byte_encoder(int x){
+    for(int i=0; i<19; i++){
+        if(x&(1<<i)){
+            cout << "line " << i << ", ";
+        }
+    }
+    cout<<"visited" << ln;
+}
+int ans_starting_point;
 int line[258];
-bool vis[258][1<<20];
+bool vis[258][1<<19];
+Edge track[258][1<<19];
 vector<Edge> map[258];
+int starting_point;
 int ans = 1000000007;
+Edge st;
 queue<Node> q;
 void bfs(int s){
     vis[s][1<<line[s]] = 1;
@@ -21,14 +36,19 @@ void bfs(int s){
     while(!q.empty()){
         Node curr = q.front();
         q.pop();
-        if(curr.stat == (1<<20)-1){ //checking if every lane is visited
+        //cout << curr.now << rp << curr.dist << ln;
+        //byte_encoder(curr.stat);
+        if(curr.stat == (1<<19)-1){ //checking if every lane is visited
             ans = min(ans, curr.dist);
+            ans_starting_point = starting_point;
+            st = {curr.now, curr.stat};
             continue;
         } 
         for(auto i:map[curr.now]){
             if(line[i.e] != line[curr.now]){ // trying to transfer
                 if(!(curr.stat & (1<<line[i.e]))){ // if the lane is not visited 
                     vis[i.e][curr.stat | (1<<line[i.e])] = 1;
+                    track[i.e][curr.stat | (1<<line[i.e])] = {curr.now, curr.stat};
                     q.push({i.e, curr.stat | (1<<line[i.e]), curr.dist});
                 }
             }
@@ -38,6 +58,7 @@ void bfs(int s){
                         continue;
                     }
                     vis[i.e][curr.stat] = 1;
+                    track[i.e][curr.stat] = {curr.now, curr.stat};
                     q.push({i.e, curr.stat, curr.dist + i.c});
                 }
             }
@@ -46,6 +67,8 @@ void bfs(int s){
 }
 int main(){
     freopen("data.txt", "r", stdin);
+    freopen("result.txt", "w", stdout);
+    //freopen("result.txt", "w", stdout);
     int n, m;
     cin >> n;
     for(int i=0; i<n; i++){
@@ -58,8 +81,14 @@ int main(){
         cin >> s >> e >> c;
         map[s].push_back({e, c});
     }
-    for(int i=0; i<258; i++){
+    for(starting_point = 0; starting_point<1; starting_point++){
+        cout << starting_point << ": now simulating" << "\n";
         memset(vis, 0, sizeof(vis));
-        bfs(i);
+        bfs(starting_point);
+    }
+    cout << ans << ln;
+    while(!(st.e == ans_starting_point && st.c == 0)){
+        cout << st.e << rp;
+        st = track[st.e][st.c];
     }
 }

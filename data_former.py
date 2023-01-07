@@ -25,6 +25,8 @@ for i in lines:
         lid[i] = cnt
         lidr[cnt] = i
         cnt+=1
+for i in range(19):
+    print(i, ": ", lidr[i])
 station_data = [] # contains data of stations in tuple list form
 for i in a:
     if i.split()[1] not in passing_lines:
@@ -46,4 +48,11 @@ g.write(str(len(edges))+"\n")
 for i in edges:
     for j in i:
         g.write(str(j)+" ")
-    g.write("\n")     
+    g.write("\n")   
+
+h = open("result.txt", "r")
+path = h.readlines()[2].split()
+path.reverse()
+path = list(map(int, path))
+for i in path:
+    print(idr[i], end=" --> ")
