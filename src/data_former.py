@@ -1,7 +1,7 @@
 import json
 passing_lines = ["에버라인", "서해선", "김포도시철도", "의정부경전철"]
-g = open("data.txt", "w")
-with open("ahfinished.json", "r", encoding='utf-8') as f:
+g = open("../data/data.txt", "w")
+with open("../data/MapData.json", "r", encoding='utf-8') as f:
     json_data = json.load(f)
 
 a = json_data.keys()

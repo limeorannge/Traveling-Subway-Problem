@@ -66,7 +66,7 @@ void bfs(int s){
     }
 }
 int main(){
-    freopen("data.txt", "r", stdin);
+    freopen("../data/data.txt", "r", stdin);
     //freopen("result.txt", "w", stdout);
     int n, m;
     cin >> n;
@@ -82,7 +82,7 @@ int main(){
     }
     int ans_now = ans;
     for(starting_point = 0; starting_point<n; starting_point++){
-        cout << "now similating:" << rp << starting_point << "\n";
+        cout << "now simulating:" << rp << starting_point << "\n";
         memset(vis, 0, sizeof(vis));
         memset(track, 0, sizeof(track));
         bfs(starting_point);
